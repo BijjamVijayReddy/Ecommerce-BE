@@ -33,7 +33,7 @@ public class SecurityConfiguration {
         return httpSecurity
                 .csrf(customizer -> customizer.disable())
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/user/register","/user/login","/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**","/webjars/**","/swagger-ui.html","/v3/api-docs/swagger-config")
+                        .requestMatchers("/user/register","/user/login","/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**","/webjars/**","/swagger-ui.html","/v3/api-docs/swagger-config","/products")
                         .permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
