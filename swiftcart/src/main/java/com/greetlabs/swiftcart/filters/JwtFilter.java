@@ -2,6 +2,7 @@ package com.greetlabs.swiftcart.filters;
 
 import com.greetlabs.swiftcart.service.Impl.JwtService;
 import com.greetlabs.swiftcart.service.Impl.MyUserDetailsService;
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,26 +27,29 @@ public class JwtFilter extends OncePerRequestFilter {
     @Autowired
     ApplicationContext context;
 
-    @Override
+        @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authHeader = request.getHeader("Authorization");
         String token =null;
-        String userName = null;
-        if(authHeader != null && authHeader.startsWith("Bearer ")){
-            token = authHeader.substring(7);
-            userName = jwtService.extractUserName(token);
-        }
-        if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null){
+    String userName = null;
+            if(authHeader != null && authHeader.startsWith("Bearer ")){
+                token = authHeader.substring(7);
+                userName = jwtService.extractUserName(token);
+            }
+            if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null){
 
-            UserDetails  userDetails = context.getBean(MyUserDetailsService.class).loadUserByUsername(userName);
-            if (jwtService.validateToken(token, userDetails)){
-                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                authToken.setDetails(new WebAuthenticationDetailsSource()
-                        .buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authToken);
+                UserDetails  userDetails = context.getBean(MyUserDetailsService.class).loadUserByUsername(userName);
+                if (jwtService.validateToken(token, userDetails)){
+                    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                    authToken.setDetails(new WebAuthenticationDetailsSource()
+                            .buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(authToken);
+                }
+
             }
 
-        }
         filterChain.doFilter(request, response);
     }
 }
+
+
