@@ -1,10 +1,11 @@
 package com.greetlabs.swiftcart.service.Impl;
 
+
 import com.greetlabs.swiftcart.dto.UserDto;
 import com.greetlabs.swiftcart.entity.User;
+import com.greetlabs.swiftcart.exception.UserAlreadyExistsException;
 import com.greetlabs.swiftcart.repository.UserRepository;
 import com.greetlabs.swiftcart.service.UserService;
-import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,9 +45,8 @@ public class UserServiceImpl implements UserService {
         User user = modelMapper.map(userDto, User.class);
         User savedUser = userRepository.save(user);
         LOGGER.info("SAVED USER : "+savedUser.getUserEmail());
-        return "SIGN UP SUCCESSFUL";
+        return "Signup Success You Can Login Now!";
     }
-
 
 
     public void validateAccountExistence(UserDto userDto) {
@@ -54,13 +54,12 @@ public class UserServiceImpl implements UserService {
         Optional<User> byUserMobile = userRepository.findByUserMobile(userDto.getUserMobile());
 
         if (byUserEmail.isPresent() && byUserMobile.isPresent()) {
-            throw new IllegalArgumentException("Account already exists with email: "
+            throw new UserAlreadyExistsException("Account already exists with email: "
                     + byUserEmail.get().getUserEmail() + " and mobile: " + byUserMobile.get().getUserMobile());
         } else if (byUserMobile.isPresent()) {
-            throw new IllegalArgumentException("Account already exists with mobile: " + byUserMobile.get().getUserMobile());
+            throw new UserAlreadyExistsException("Account already exists with mobile: " + byUserMobile.get().getUserMobile());
         } else if (byUserEmail.isPresent()) {
-            throw new IllegalArgumentException("Account already exists with email: " + byUserEmail.get().getUserEmail());
+            throw new UserAlreadyExistsException("Account already exists with email: " + byUserEmail.get().getUserEmail());
         }
     }
-
-    }
+}

@@ -1,11 +1,9 @@
 package com.greetlabs.swiftcart.service.Impl;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import io.jsonwebtoken.security.SignatureException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +39,7 @@ public class JwtService {
                 .add(claims)
                 .subject(userEmail)
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() +  60 * 60 * 1000))
+                .expiration(new Date(System.currentTimeMillis() + 60 * 60 * 1000))
                 .and()
                 .signWith(getKey())
                 .compact();
@@ -63,11 +61,14 @@ public class JwtService {
     }
 
     private Claims extractAllClaims(String token) {
-            return Jwts.parser()
-                    .verifyWith(getKey())
-                    .build()
-                    .parseSignedClaims(token)
-                    .getPayload();
+
+               return Jwts.parser()
+                       .verifyWith(getKey())
+                       .build()
+                       .parseSignedClaims(token)
+                       .getPayload();
+
+
 
     }
 
