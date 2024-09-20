@@ -4,6 +4,7 @@ import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Base64;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.sql.rowset.serial.SerialBlob;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.greetlabs.swiftcart.entity.Product;
+
 import com.greetlabs.swiftcart.repository.ProductRepository;
 import com.greetlabs.swiftcart.response.ProductResponse;
 
@@ -104,5 +106,12 @@ public class ProductServiceImpl implements ProductService {
         }
         return blob.getBytes(1, (int) blob.length());
     }
+
+	@Override
+	public Optional<Product> getProductById(int Id) {
+		return repo.findById(Id);
+	}
+
+	
 
 }

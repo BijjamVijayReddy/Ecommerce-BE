@@ -2,6 +2,7 @@ package com.greetlabs.swiftcart.service;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,7 +19,7 @@ public interface ProductService {
 
 	List<ProductResponse> getAllProducts();
 	
-//	byte[] getPhotoByProductId(int Id) throws SQLException;
+	Optional<Product> getProductById(int Id);
 
 	
 }

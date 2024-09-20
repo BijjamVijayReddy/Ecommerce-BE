@@ -2,6 +2,7 @@ package com.greetlabs.swiftcart.entity;
 
 import java.sql.Blob;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -36,5 +37,6 @@ public class Product {
 	private String Category;
 	
 	private String Discription;
+
 
 }

@@ -7,6 +7,7 @@ import com.greetlabs.swiftcart.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("/user")
 public class UserController {
