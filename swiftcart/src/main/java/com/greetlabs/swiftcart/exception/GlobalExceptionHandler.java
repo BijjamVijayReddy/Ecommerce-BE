@@ -32,7 +32,6 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, String>> handleSignatureException(SignatureException ex) {
         // Log the error for debugging purposes
         System.err.println("Invalid JWT signature: " + ex.getMessage());
-        System.out.println("==========================================================================================1");
 
         // Create a response map with a custom message and the status code
         Map<String, String> response = new HashMap<>();
@@ -47,7 +46,6 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, String>> handleJwtException(JwtException ex) {
         // Log the error for debugging purposes
         System.err.println("JWT error: " + ex.getMessage());
-        System.out.println("==========================================================================================2");
 
         // Create a response map with a custom message and the status code
         Map<String, String> response = new HashMap<>();
@@ -62,7 +60,6 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, String>> handleGeneralException(Exception ex) {
         // Log the error for debugging purposes
         System.err.println("Unexpected error: " + ex.getMessage());
-        System.out.println("==========================================================================================3");
 
         // Create a response map with a generic error message
         Map<String, String> response = new HashMap<>();

@@ -29,11 +29,11 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        
+
         return httpSecurity
                 .csrf(customizer -> customizer.disable())
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/user/register","/user/login","/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**","/webjars/**","/swagger-ui.html","/v3/api-docs/swagger-config","/products","/products/all-products")
+                        .requestMatchers("/swift-cart/register","/swift-cart/login","/swift-cart/forgot-password","/swift-cart/change-password","/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**","/webjars/**","/swagger-ui.html","/v3/api-docs/swagger-config")
                         .permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
